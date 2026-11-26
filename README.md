@@ -98,116 +98,128 @@ Presenter - презентер содержит основную логику п
 `emit<T extends object>(event: string, data?: T): void` - инициализация события. При вызове события в метод передается название события и объект с данными, который будет использован как аргумент для вызова обработчика.  
 `trigger<T extends object>(event: string, context?: Partial<T>): (data: T) => void` - возвращает функцию, при вызове которой инициализируется требуемое в параметрах событие с передачей в него данных из второго параметра.
 
-##Данные
+## Данные
 Содержит описание основных сущностей, используемых в приложении.
 
-###Интерфейсы данных
+### Интерфейсы данных
 
-####Товар (IProduct)
+#### Товар (IProduct)
 Описывает карточку товара, получаемую с сервера.
 
-`interface IProduct {
+```
+interface IProduct {
   id: string;
   description: string;
   image: string;
   title: string;
   category: string;
   price: number | null;
-}`
+}
+```
 
-####Покупатель (IBuyer)
+#### Покупатель (IBuyer)
 Описывает данные пользователя, для отправки на сервер.
 
-`interface IBuyer {
+```
+interface IBuyer {
   payment: TPayment;
   email: string;
   phone: string;
   address: string;
-}`
+}
+```
 
-####Заказ (IOrder)
+#### Заказ (IOrder)
 Описывает данные пользователя и выбранные им товары для отправки на сервер.
 
-`interface IOrder {
+```
+interface IOrder {
     items: IProduct[];
     buyer: IBuyer;
     total?: number;
-}`
+}
+```
 
-####Ответ каталога (IProductResponse)
+#### Ответ каталога (IProductResponse)
 Описывает данные каталога, которые вернет сервер
 
-`interface IProductResponse {
+```
+interface IProductResponse {
     total: number;
     items: IProduct[];
-}`
+}
+```
 
-####Ответ заказа(IOrderResponse)
+#### Ответ заказа(IOrderResponse)
 Описывает данные, которые вернет сервер после отправки заказа.
 
-`export interface IOrderResponse {
+```
+export interface IOrderResponse {
     id: string;
     total: number;
-}`
+}
+```
 
-###Модули данных
+### Модули данных
 
-####Каталог товаров
+#### Каталог товаров
 Отвечает за хранение и отображение информации о товаре.
 
 Поля класса:  
-`_products!: IProduct[]` - массив товаров.
+`_products!: IProduct[]` - массив товаров.  
 `selectedProduct: IProduct | null` - выбранный товар.
 
 Методы класса:
-`set products(products: IProduct[])` - сохранение массива всех товаров.
-`get products(): IProduct[]` - возвращает массив всех товаров.
-`getProductById(id: string): IProduct | undefined` - получение одного товара по id.
-`set selectedProduct(product: IProduct): void` - сохранение выбранного товара для отображения.
-`get selectedProduct(): IProduct | null` - получение товара для подробного отображения.
+`set products(products: IProduct[])` - сохранение массива всех товаров.  
+`get products(): IProduct[]` - возвращает массив всех товаров.  
+`getProductById(id: string): IProduct | undefined` - получение одного товара по id.  
+`set selectedProduct(product: IProduct): void` - сохранение выбранного товара для отображения.  
+`get selectedProduct(): IProduct | null` - получение товара для подробного отображения.  
 
-####Корзина
+#### Корзина
 Отвечает за хранение и отображение выбранных пользователем товаров.
 
-Поля класса:
+Поля класса:  
 `items: IProduct[]` - массив выбранных для покупки товаров.
 
-Методы класса:
-`clearCart(): void` - очистка корзины.
-`get items(): IProduct[]` - получение массива выбранных товаров.
-`addItem(product: IProduct): void` - добавление товара в массив корзины.
-`removeItem(product: IProduct): void` - удаление товара из массива корзины.
-`getPrice(): number` - получение общей стоимости всех товаров в корзине.
-`getCount(): number` - получение количества товаров в корзине.
-`hasItem(id: string): boolean` - проверка наличия товара в корзине по его id.
+Методы класса:  
+`clearCart(): void` - очистка корзины.  
+`get items(): IProduct[]` - получение массива выбранных товаров.  
+`addItem(product: IProduct): void` - добавление товара в массив корзины.  
+`removeItem(product: IProduct): void` - удаление товара из массива корзины.  
+`getPrice(): number` - получение общей стоимости всех товаров в корзине.  
+`getCount(): number` - получение количества товаров в корзине.  
+`hasItem(id: string): boolean` - проверка наличия товара в корзине по его id.  
 
-####Покупатель
+#### Покупатель
 Отвечает за хранение и валидацию данных покупателя.
 Типы:
 `type TPayment = 'card' | 'cash' | '';` - тип для способов оплаты.
 
-Поля класса:
-`payment: TPayment` - способ оплаты.
-`address: string` - адрес.
-`email: string` - электронная почта.
-`phone: string` - номер телефона.
+Поля класса:  
+`payment: TPayment` - способ оплаты.  
+`address: string` - адрес.  
+`email: string` - электронная почта.  
+`phone: string` - номер телефона.  
 
-Методы класса:
-`validator(name: string): {isValid: boolean, error?: string}` - проверка корректности данных.
-`setInfo({payment?: 'card' | 'cash' | '', address?: string, email?: string, phone?: string}): void` - сохранение данных в модели.
-`getInfo(): {payment: string, address: string, email: string, phone: string}` - получение всех данных.
+Методы класса:  
+`validator(name: string): {isValid: boolean, error?: string}` - проверка корректности данных.  
+`setInfo({payment?: 'card' | 'cash' | '', address?: string, email?: string, phone?: string}): void` - сохранение данных в модели.  
+`getInfo(): {payment: string, address: string, email: string, phone: string}` - получение всех данных.  
 `clearInfo(): void` - очистка полей.
 
-###Слой коммуникации
-####Запросы к серверу
+### Слой коммуникации
+#### Запросы к серверу
 
-Поля класса:
+Поля класса:  
 `api: Api` - класс хранит внутри себя обьект класса Api.
 
-Конструктор:
-`constructor(api: Api) {
+Конструктор:  
+```
+constructor(api: Api) {
   this.api = api}` - сохраняем ссылку на класс.
+```
 
-Методы класса:
+Методы класса:  
 `getProduct(): Promise<IProduct[]>` - получение с сервера объекта с массивом товаров.
 `postOrder(order: IOrder): Promise<IOrder>` - передача данных серверу и получение ответа.
