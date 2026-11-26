@@ -221,5 +221,5 @@ constructor(api: Api) {
 ```
 
 Методы класса:  
-`getProduct(): Promise<IProduct[]>` - получение с сервера объекта с массивом товаров.
-`postOrder(order: IOrder): Promise<IOrder>` - передача данных серверу и получение ответа.
+`getProduct(): Promise<IProductResponse>` - получение с сервера объекта с массивом товаров.
+`postOrder(order: IOrder): Promise<IOrderResponse>` - передача данных серверу и получение ответа.
