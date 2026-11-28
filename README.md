@@ -108,12 +108,12 @@ Presenter - презентер содержит основную логику п
 
 ```
 interface IProduct {
-  id: string;
-  description: string;
-  image: string;
-  title: string;
-  category: string;
-  price: number | null;
+  id: string; - уникальный идентефикатор продукта
+  description: string; - описание продукта
+  image: string; - картинка товара
+  title: string; - название товара
+  category: string; - категория товара
+  price: number | null; - стоимость товара
 }
 ```
 
@@ -122,10 +122,10 @@ interface IProduct {
 
 ```
 interface IBuyer {
-  payment: TPayment;
-  email: string;
-  phone: string;
-  address: string;
+  payment: TPayment; - способ оплаты
+  email: string; - электронная почта покупателя
+  phone: string; - номер телефона покупателя
+  address: string; - адрес доставки покупателя
 }
 ```
 
@@ -133,10 +133,9 @@ interface IBuyer {
 Описывает данные пользователя и выбранные им товары для отправки на сервер.
 
 ```
-interface IOrder {
-    items: IProduct[];
-    buyer: IBuyer;
-    total?: number;
+interface IOrder extends IBuyer {
+    items: string[];
+    total: number;
 }
 ```
 
@@ -145,8 +144,8 @@ interface IOrder {
 
 ```
 interface IProductResponse {
-    total: number;
-    items: IProduct[];
+    total: number; - количество товаров
+    items: IProduct[]; - массив товаров
 }
 ```
 
@@ -155,8 +154,8 @@ interface IProductResponse {
 
 ```
 export interface IOrderResponse {
-    id: string;
-    total: number;
+    id: string; - идентефикатор заказа
+    total: number; - общую стоимость товаров
 }
 ```
 

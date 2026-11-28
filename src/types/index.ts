@@ -27,10 +27,9 @@ export interface IProductResponse {
     items: IProduct[];
 }
 
-export interface IOrder {
-    items: IProduct[];
-    buyer: IBuyer;
-    total?: number;
+export interface IOrder extends IBuyer {
+    items: string[];
+    total: number;
 }
 
 export interface IOrderResponse {

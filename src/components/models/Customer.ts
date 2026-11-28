@@ -1,4 +1,4 @@
-import { TPayment } from "../../types";
+import { IBuyer, TPayment } from "../../types";
 
 export class Customer {
   private payment: TPayment = '';
@@ -6,30 +6,38 @@ export class Customer {
   private email: string = '';
   private phone: string = '';
 
-  validator(name: string): {isValid: boolean, error?: string} {
-    const item = (this as any)[name];
+  validator(): Record<string, string> {
+    const errors: Record<string, string> = {};
 
-    if(!item || item === '') {
-      return {isValid: false, error: `Поле ${name} не заполнено`}
-    }else{
-      return {isValid: true}
+    if(!this.payment) {
+      errors.payment = 'Укажите способ оплаты'
     }
-  } 
+    if(!this.address) {
+      errors.address = 'Укажите адрес'
+    }
+    if(!this.email) {
+      errors.email = 'Укажите email'
+    }
+    if(!this.phone) {
+      errors.phone = 'Укажите номер телефона'
+    }
+    return errors;
+  }
 
-  setInfo(payment?: TPayment, address?: string, email?: string, phone?: string): void {
-    if(payment !== undefined) {
-      this.payment = payment;
-    }if(address !== undefined) {
-      this.address = address;
-    }if(email !== undefined) {
-      this.email = email;
-    }if(phone !== undefined) {
-      this.phone = phone;
+  setInfo(data: Partial<IBuyer>): void {
+    if(data.payment !== undefined) {
+      this.payment = data.payment;
+    }if(data.address !== undefined) {
+      this.address = data.address;
+    }if(data.email !== undefined) {
+      this.email = data.email;
+    }if(data.phone !== undefined) {
+      this.phone = data.phone;
     }
   }
 
-  getInfo(): {payment: string, adress: string, email: string, phone: string} {
-    return {payment: this.payment, adress: this.address, email: this.email, phone: this.phone}
+  getInfo(): IBuyer {
+    return {payment: this.payment, address: this.address, email: this.email, phone: this.phone}
   }
 
   clearInfo(): void {

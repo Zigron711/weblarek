@@ -1,7 +1,7 @@
 import { IOrder, IOrderResponse, IProductResponse } from "../../types";
 import { Api } from "../base/Api";
 
-export class Order {
+export class LarekApi {
   private api: Api;
 
   constructor(api: Api) {
